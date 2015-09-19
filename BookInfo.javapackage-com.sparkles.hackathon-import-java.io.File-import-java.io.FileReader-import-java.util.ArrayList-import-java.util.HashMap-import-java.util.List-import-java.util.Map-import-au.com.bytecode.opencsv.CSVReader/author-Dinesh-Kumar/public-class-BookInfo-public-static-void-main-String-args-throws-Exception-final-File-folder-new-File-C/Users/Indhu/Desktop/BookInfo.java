@@ -17,10 +17,11 @@ public class BookInfo {
 
 	public static void main(String[] args) throws Exception {
 		final File folder = new File ("C:/Users/Indhu/Desktop/CSV_FILES");
-		listFilesForFolder(folder);
+		Map<String, Map<String, String>> map = listFilesForFolder(folder);		
 	}
 	
-	public static void listFilesForFolder(final File folder) throws Exception {
+	public static Map<String, Map<String, String>> listFilesForFolder(final File folder) throws Exception {
+		Map<String, Map<String, String>> map = new HashMap<String, Map<String,String>>();
 		List<String> fileNames = new ArrayList<String>();
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
@@ -31,15 +32,16 @@ public class BookInfo {
 				}
 			}
 		}
-		readFileAndPopulate(fileNames);
+		map = readFileAndPopulate(fileNames);
+		return map;
 	}
 	
-	public static void readFileAndPopulate(final List<String> fileNames) throws Exception {
-		StringBuilder sbr = new StringBuilder();
+	public static Map<String, Map<String, String>> readFileAndPopulate(final List<String> fileNames) throws Exception {
 		Map<String, String> map = null;
 		Map<String, Map<String, String>> finalMap = null;
 		finalMap = new HashMap<String, Map<String, String>>();
 		for (String fileName : fileNames) {
+			@SuppressWarnings("resource")
 			CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Indhu\\Desktop\\CSV_FILES\\"+fileName));
 			List<String[]> temp = reader.readAll();
 			boolean flag = false;
@@ -69,6 +71,7 @@ public class BookInfo {
 				if (!map.isEmpty())
 				finalMap.put(tem[0], map);
 			}
-		}		
+		}	
+		return finalMap;
 	}	
 }
