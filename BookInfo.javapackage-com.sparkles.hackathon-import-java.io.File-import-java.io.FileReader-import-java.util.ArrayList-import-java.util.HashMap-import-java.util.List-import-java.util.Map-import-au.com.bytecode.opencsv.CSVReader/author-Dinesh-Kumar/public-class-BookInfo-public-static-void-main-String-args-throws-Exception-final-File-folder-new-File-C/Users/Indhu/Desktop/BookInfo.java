@@ -56,10 +56,11 @@ public class BookInfo {
 						if (finalMap.containsKey(tem[0])) {
 							for (Map.Entry<String, Map<String, String>> entrySet : finalMap.entrySet()) {
 								Map<String, String> mapValue = entrySet.getValue();	
-								if (entrySet.getKey().equals(tem[0]))
-								mapValue.put(tem[1], tem[2]);
+								if (entrySet.getKey().equals(tem[0])) {
+									String val = tem[1].toString();
+									mapValue.put(val.trim(), tem[2]);
+								}
 							}							
-							System.out.println("Notify Changed Values ::: " +tem[1] + " ::: " + tem[2] +" for Key :: " +tem[0]);
 						} else {
 							map.put(tem[1], tem[2]);
 						}							
@@ -68,9 +69,6 @@ public class BookInfo {
 				if (!map.isEmpty())
 				finalMap.put(tem[0], map);
 			}
-		}
-		for (Map.Entry<String, Map<String, String>> entry : finalMap.entrySet()) {
-			System.out.println("Final Map is ::: " +entry);
-		} 
-	} 
+		}		
+	}	
 }
